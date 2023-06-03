@@ -43,7 +43,8 @@ This is a very simple project, mainly for training
 
 ### Continued development
 
-Adding the ability to play the code obtained, could be interesting
+Adding the ability to play the code obtained, could be interesting and try to use some module to 
+improve the UI and adding, of course the requirements file. 
 
 [//]: # (### Useful resources)
 

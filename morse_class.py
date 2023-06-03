@@ -1,14 +1,7 @@
 import csv
-# import winsound
 
-# TIME_UNIT = 50  # in milliseconds
-# FREQ = 10000  # in hertz
-# SOUND_ARG = {
-#     '.': (FREQ, TIME_UNIT),
-#     '-': (FREQ, TIME_UNIT * 3),
-#     '*': (50, TIME_UNIT)
-# }
-
+class MorseError(Exception):
+    pass
 
 class Morse:
     def __init__(self, text):
@@ -26,10 +19,17 @@ class Morse:
                 letter_morse_dict[row['Letter']] = row['Code']
         return letter_morse_dict
 
+    def code_symbol(self, letter):
+        try:
+            symbol = self.letter_dict[letter]
+        except KeyError:
+            raise(MorseError(f'[{letter}] --> Wrong character'))
+        return symbol
+
     def convert_word(self, word_to_convert, inter_symbol=False):
-        letter_morse_list = ['*'.join(list(self.letter_dict[letter]))
+        letter_morse_list = ['*'.join(list(self.code_symbol(letter)))
                              if inter_symbol
-                             else self.letter_dict[letter]
+                             else self.code_symbol(letter)
                              for letter
                              in word_to_convert]
         if inter_symbol:
@@ -44,16 +44,7 @@ class Morse:
             return '*******'.join(word_morse_list)
         return ' / '.join(word_morse_list)  # 3 spaces for inter-word
 
-    # def play(self):
-    #     for elem in self.morse_text_track:
-    #         winsound.Beep(*SOUND_ARG[elem])
 
-    # TODO 2. Convert letter to morse (letters/numbers, space between words).
-    #   dit = 1 * TIME_UNIT / FREQ
-    #   dah = 3 * TIME_UNIT / FREQ
-    #   inter_element = 1 * TIME_UNIT(mute)
-    #   between_letters = 3 * inter_element
-    #   between_words = 7 * inter_element
 
 
 
